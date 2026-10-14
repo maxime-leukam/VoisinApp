@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VoisinApp.Views.WelcomePage"
+             Title="Bienvenu"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandCream}">
+
+    <!-- Conteneur centré, largeur limitée à 480 (voir OnSizeAllocated) pour Windows / macOS / tablettes -->
+    <Grid x:Name="Container"
+          RowDefinitions="*, Auto"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="0">
+                <HorizontalStackLayout Padding="24,16" Spacing="14">
+                    <Border BackgroundColor="{StaticResource BrandYellow}"
+                            StrokeThickness="0"
+                            WidthRequest="48" HeightRequest="48"
+                            StrokeShape="RoundRectangle 14">
+                        <Label Text="🍃"
+                               FontSize="22"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                    <Label Text="VoisinApp"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource BrandDark}"
+                            VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <!-- Image principale avec dégradé et badge -->
+                <Grid HeightRequest="300">
+                    <Image Source="welcome_hero.jpg"
+                           Aspect="AspectFill"
+                           SemanticProperties.Description="Des mains qui se rejoignent au centre d'un groupe de personnes" />
+
+                    <BoxView VerticalOptions="End" HeightRequest="140">
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#00F5F2EA" Offset="0.0" />
+                                <GradientStop Color="#F5F2EA" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
+
+                    <Border HorizontalOptions="Start"
+                            VerticalOptions="End"
+                            Margin="24,0,0,16"
+                            Padding="12,7"
+                            BackgroundColor="#4A6B5F"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Label Text="Ensemble, on va plus loin"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="White" />
+                    </Border>
+                </Grid>
+
+                <!-- Textes -->
+                <VerticalStackLayout Padding="24,8,24,24" Spacing="10">
+                    <Label Text="VOTRE QUARTIER, AUTREMENT"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource BrandGreen}" />
+
+                    <Label Text="Plus proches.&#10;Plus solidaires."
+                           FontSize="38"
+                           FontAttributes="Bold"
+                           LineHeight="1.05"
+                           TextColor="{StaticResource BrandDark}"
+                           SemanticProperties.HeadingLevel="Level1" />
+
+                    <Label Text="Echangez, entraidez-vous et donnez vie à votre quartier, simplement."
+                           FontSize="17"
+                           LineHeight="1.3"
+                           TextColor="{StaticResource BrandMuted}" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Boutons fixés en bas -->
+        <VerticalStackLayout Grid.Row="1"
+                             Padding="24,8,24,32"
+                             Spacing="8">
+
+            <Button Text="Rejoindre mon quartier"
+                    BackgroundColor="{StaticResource BrandGreen}"
+                    TextColor="White"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    HeightRequest="56"
+                    CornerRadius="18"
+                    Clicked="OnJoinClicked">
+                <Button.Shadow>
+                    <Shadow Brush="{StaticResource BrandGreen}"
+                            Offset="0,6"
+                            Radius="14"
+                            Opacity="0.25" />
+                </Button.Shadow>
+            </Button>
+
+            <Button Text="J'ai déjà un compte"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource BrandDark}"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    HeightRequest="48"
+                    Clicked="OnLoginClicked" />
+        </VerticalStackLayout>
+
+    </Grid>
+       
+</ContentPage>
