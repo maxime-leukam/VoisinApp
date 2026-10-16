@@ -7,8 +7,9 @@ namespace VoisinApp
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
-
+            Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
         }
     }
 }

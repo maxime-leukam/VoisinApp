@@ -25,8 +25,8 @@ public partial class LoginPage : ContentPage
     {
         // TODO : appeler le back-end pour authentifier l'utilisateur
         // EmailEntry.Text et PasswordEntry.Text contiennent les valeurs saisies
-        await Task.CompletedTask;
         await Shell.Current.GoToAsync("//HomePage");
+        await Task.CompletedTask;
     }
 
     private async void OnForgotPasswordTapped(object? sender, TappedEventArgs e)
@@ -38,7 +38,7 @@ public partial class LoginPage : ContentPage
     private async void OnCreateAccountTapped(object? sender, TappedEventArgs e)
     {
         // TODO : page d'inscription
-        await Task.CompletedTask;
         await Shell.Current.GoToAsync(nameof(RegisterPage));
+        await Task.CompletedTask;
     }
 }

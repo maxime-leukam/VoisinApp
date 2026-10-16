@@ -1,12 +1,95 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VoisinApp.Views.Controls.BottomNavbar"
-             Title="BottomNavbar">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+             x:Class="VoisinApp.Views.Controls.BottomNavbar">
+
+    <!-- Ligne 0 (16) : espace où le bouton central dépasse. Ligne 1 : la barre -->
+    <Grid RowDefinitions="16,Auto"
+          ColumnDefinitions="*,*,*,*,*"
+          ColumnSpacing="0">
+
+        <BoxView Grid.Row="1" Grid.ColumnSpan="5" Color="{StaticResource BrandPaper}" />
+        <BoxView Grid.Row="1" Grid.ColumnSpan="5"
+                 HeightRequest="1"
+                 VerticalOptions="Start"
+                 Color="{StaticResource BrandBorder}" />
+
+        <!-- Accueil -->
+        <VerticalStackLayout x:Name="HomeItem" ClassId="Home"
+                             Grid.Row="1" Grid.Column="0"
+                             Padding="0,10,0,12" Spacing="4"
+                             SemanticProperties.Description="Accueil">
+            <Label x:Name="HomeIcon" Text="🏠" FontSize="22" HorizontalOptions="Center" />
+            <Label x:Name="HomeLabel" Text="Accueil" FontSize="11" FontAttributes="Bold" HorizontalOptions="Center" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnItemTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <!-- Annonces -->
+        <VerticalStackLayout x:Name="AnnoncesItem" ClassId="Annonces"
+                             Grid.Row="1" Grid.Column="1"
+                             Padding="0,10,0,12" Spacing="4"
+                             SemanticProperties.Description="Annonces">
+            <Label x:Name="AnnoncesIcon" Text="🛍️" FontSize="22" HorizontalOptions="Center" />
+            <Label x:Name="AnnoncesLabel" Text="Annonces" FontSize="11" FontAttributes="Bold" HorizontalOptions="Center" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnItemTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <!-- Publier (bouton central) -->
+        <VerticalStackLayout x:Name="PublishItem" ClassId="Publish"
+                             Grid.Row="0" Grid.RowSpan="2" Grid.Column="2"
+                             Spacing="4"
+                             HorizontalOptions="Center"
+                             SemanticProperties.Description="Publier">
+            <Border BackgroundColor="{StaticResource BrandGreen}"
+                    StrokeThickness="0"
+                    WidthRequest="56" HeightRequest="56"
+                    StrokeShape="RoundRectangle 28">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource BrandGreen}" Offset="0,4" Radius="10" Opacity="0.3" />
+                </Border.Shadow>
+                <Label Text="+"
+                       FontSize="32"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+            <Label Text="Publier"
+                   FontSize="11"
+                   FontAttributes="Bold"
+                   TextColor="#8A9A93"
+                   HorizontalOptions="Center" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnItemTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <!-- Messages -->
+        <VerticalStackLayout x:Name="MessagesItem" ClassId="Messages"
+                             Grid.Row="1" Grid.Column="3"
+                             Padding="0,10,0,12" Spacing="4"
+                             SemanticProperties.Description="Messages">
+            <Label x:Name="MessagesIcon" Text="💬" FontSize="22" HorizontalOptions="Center" />
+            <Label x:Name="MessagesLabel" Text="Messages" FontSize="11" FontAttributes="Bold" HorizontalOptions="Center" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnItemTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+        <!-- Profil -->
+        <VerticalStackLayout x:Name="ProfilItem" ClassId="Profil"
+                             Grid.Row="1" Grid.Column="4"
+                             Padding="0,10,0,12" Spacing="4"
+                             SemanticProperties.Description="Profil">
+            <Label x:Name="ProfilIcon" Text="👤" FontSize="22" HorizontalOptions="Center" />
+            <Label x:Name="ProfilLabel" Text="Profil" FontSize="11" FontAttributes="Bold" HorizontalOptions="Center" />
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnItemTapped" />
+            </VerticalStackLayout.GestureRecognizers>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentView>

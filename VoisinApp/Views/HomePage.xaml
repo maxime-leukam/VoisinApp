@@ -1,12 +1,268 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VoisinApp.Views.Controls.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:controls="clr-namespace:VoisinApp.Views.Controls"
+             x:Class="VoisinApp.Views.HomePage"
+             Title="Accueil"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandPaper}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="*,Auto"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20,20,20,24" Spacing="0">
+
+                <!-- En-tête : salutation + notifications -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                        <Label x:Name="GreetingLabel"
+                               Text="Bonjour Mireille"
+                               FontSize="26"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource BrandDark}"
+                               SemanticProperties.HeadingLevel="Level1" />
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="📍" FontSize="14" VerticalOptions="Center" />
+                            <Label x:Name="ZoneLabel"
+                                   Text="Bonamoussadi ›"
+                                   FontSize="15"
+                                   TextColor="{StaticResource BrandMuted}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <Grid Grid.Column="1" WidthRequest="52" HeightRequest="52">
+                        <Border BackgroundColor="{StaticResource BrandCream}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 26"
+                                SemanticProperties.Description="Notifications">
+                            <Label Text="🔔"
+                                   FontSize="22"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNotificationsTapped" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                        <!-- Pastille de notification non lue -->
+                        <BoxView Color="#E8604C"
+                                 WidthRequest="9" HeightRequest="9"
+                                 CornerRadius="5"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Start"
+                                 Margin="0,8,10,0" />
+                    </Grid>
+                </Grid>
+
+                <!-- Bannière "La vie du quartier" -->
+                <Border Margin="0,20,0,0"
+                        BackgroundColor="{StaticResource BrandGreen}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 28">
+                    <Grid ColumnDefinitions="*,140" MinimumHeightRequest="200">
+                        <Image Grid.Column="1"
+                               Source="home_banner.jpg"
+                               Aspect="AspectFill"
+                               SemanticProperties.Description="Un voisin souriant" />
+
+                        <VerticalStackLayout Grid.Column="0"
+                                             Padding="22,22,8,22"
+                                             Spacing="8"
+                                             VerticalOptions="Center">
+                            <Label Text="LA VIE DU QUARTIER"
+                                   FontSize="11"
+                                   CharacterSpacing="1.2"
+                                   TextColor="#CFE3DA" />
+                            <Label Text="Un voisin peut faire la différence."
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   LineHeight="1.1"
+                                   TextColor="White" />
+                            <Label Text="Besoin d'un coup de main ? La communauté est là."
+                                   FontSize="13"
+                                   LineHeight="1.2"
+                                   TextColor="#E3EFE9" />
+                            <Button Text="Demander de l'aide  →"
+                                    HorizontalOptions="Start"
+                                    Margin="0,6,0,0"
+                                    BackgroundColor="{StaticResource BrandYellow}"
+                                    TextColor="{StaticResource BrandDark}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    HeightRequest="44"
+                                    CornerRadius="14"
+                                    Padding="16,0"
+                                    Clicked="OnAskHelpClicked" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Raccourcis -->
+                <Label Text="Raccourcis"
+                       Margin="0,28,0,12"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}"
+                       SemanticProperties.HeadingLevel="Level2" />
+
+                <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+
+                    <Border Grid.Column="0"
+                            BackgroundColor="White" Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1" StrokeShape="RoundRectangle 20" Padding="6,14">
+                        <VerticalStackLayout Spacing="8">
+                            <Border BackgroundColor="#FBE0D8" StrokeThickness="0"
+                                    WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 12">
+                                <Label Text="❓" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Text="Demander de l'aide" FontSize="12" FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAskHelpTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            BackgroundColor="White" Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1" StrokeShape="RoundRectangle 20" Padding="6,14">
+                        <VerticalStackLayout Spacing="8">
+                            <Border BackgroundColor="#F7E9C6" StrokeThickness="0"
+                                    WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 12">
+                                <Label Text="🛍️" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Text="Publier une annonce" FontSize="12" FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPublishAdTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Column="2"
+                            BackgroundColor="White" Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1" StrokeShape="RoundRectangle 20" Padding="6,14">
+                        <VerticalStackLayout Spacing="8">
+                            <Border BackgroundColor="#DCEAF0" StrokeThickness="0"
+                                    WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 12">
+                                <Label Text="📅" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Text="Voir les événements" FontSize="12" FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnEventsTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Column="3"
+                            BackgroundColor="White" Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1" StrokeShape="RoundRectangle 20" Padding="6,14">
+                        <VerticalStackLayout Spacing="8">
+                            <Border BackgroundColor="#E8DFEC" StrokeThickness="0"
+                                    WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 12">
+                                <Label Text="⚠️" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Text="Faire un signalement" FontSize="12" FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center" TextColor="{StaticResource BrandDark}" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnReportTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </Grid>
+
+                <!-- Près de chez vous -->
+                <Grid Margin="0,28,0,12" ColumnDefinitions="*,Auto">
+                    <Label Text="Près de chez vous"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BrandDark}"
+                           SemanticProperties.HeadingLevel="Level2" />
+                    <Label Grid.Column="1"
+                           Text="Tout voir"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BrandGreen}"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSeeAllTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <!-- Publication d'exemple (statique pour l'instant) -->
+                <Border BackgroundColor="White"
+                        Stroke="{StaticResource BrandBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="12">
+
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border BackgroundColor="#DCEBE2" StrokeThickness="0"
+                                    WidthRequest="46" HeightRequest="46" StrokeShape="RoundRectangle 14">
+                                <Label Text="AN" FontSize="14" FontAttributes="Bold"
+                                       TextColor="{StaticResource BrandDark}"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="Aïcha Njoya" FontSize="15" FontAttributes="Bold"
+                                       TextColor="{StaticResource BrandDark}" />
+                                <Label Text="Rue des Palmiers · il y a 18 min" FontSize="12"
+                                       TextColor="{StaticResource BrandMuted}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="≡" FontSize="22"
+                                   TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label Text="J'ai préparé quelques sacs de provisions à partager. Une famille du quartier en a besoin ?"
+                               FontSize="15"
+                               LineHeight="1.25"
+                               TextColor="{StaticResource BrandDark}" />
+
+                        <Border StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18"
+                                HeightRequest="150">
+                            <Grid>
+                                <Image Source="post_provisions.jpg" Aspect="AspectFill"
+                                       SemanticProperties.Description="Sacs de provisions à donner" />
+                                <Border BackgroundColor="{StaticResource BrandGreen}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 8"
+                                        Padding="10,5"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Start"
+                                        Margin="12,12,0,0">
+                                    <Label Text="À DONNER" FontSize="10" FontAttributes="Bold"
+                                           CharacterSpacing="0.8" TextColor="White" />
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <HorizontalStackLayout Spacing="22">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="♡" FontSize="22" TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                                <Label Text="24" FontSize="14" TextColor="{StaticResource BrandMuted}" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="💬" FontSize="18" VerticalOptions="Center" />
+                                <Label Text="7 réponses" FontSize="14" TextColor="{StaticResource BrandMuted}" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Barre de navigation -->
+        <controls:BottomNavbar Grid.Row="1" ActiveTab="Home" />
+
+    </Grid>
 </ContentPage>
