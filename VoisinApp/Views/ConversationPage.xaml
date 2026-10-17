@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VoisinApp.Views.ConversationPage"
+             Title="Conversation"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandCream}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="Auto,*,Auto"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <!-- En-tête : retour, nom, statut, menu -->
+        <Grid Grid.Row="0"
+              BackgroundColor="{StaticResource BrandPaper}"
+              RowDefinitions="Auto,Auto"
+              ColumnDefinitions="72,*,72">
+            <Button Text="←"
+                    FontSize="24"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="56" HeightRequest="56" Padding="0"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    Margin="12,8,0,8"
+                    SemanticProperties.Description="Retour"
+                    Clicked="OnBackClicked" />
+
+            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                <Label x:Name="NameLabel"
+                       Text="Grâce M."
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}"
+                       HorizontalOptions="Center" />
+                <Label Text="En ligne il y a 5 min"
+                       FontSize="12"
+                       TextColor="{StaticResource BrandMuted}"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <Label Grid.Column="2"
+                   Text="≡"
+                   FontSize="26"
+                   TextColor="{StaticResource BrandDark}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <BoxView Grid.Row="1" Grid.ColumnSpan="3"
+                     HeightRequest="1"
+                     Color="{StaticResource BrandBorder}" />
+        </Grid>
+
+        <!-- Messages -->
+        <ScrollView x:Name="MessagesScroll" Grid.Row="1">
+            <VerticalStackLayout Padding="20,18,20,20" Spacing="12">
+
+                <Label Text="AUJOURD'HUI"
+                       FontSize="11"
+                       FontAttributes="Bold"
+                       CharacterSpacing="0.8"
+                       TextColor="{StaticResource BrandMuted}"
+                       HorizontalOptions="Center" />
+
+                <!-- Bulles ajoutées dans le code-behind -->
+                <VerticalStackLayout x:Name="MessagesStack" Spacing="12" />
+
+                <Border x:Name="SafetyNotice"
+                        BackgroundColor="#E9EFEA"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="14,10"
+                        HorizontalOptions="Center">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="🛡️" FontSize="14" VerticalOptions="Center" />
+                        <Label Text="Ne partagez que les informations nécessaires."
+                               FontSize="12"
+                               TextColor="{StaticResource BrandMuted}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Zone de saisie -->
+        <Grid Grid.Row="2"
+              BackgroundColor="White"
+              ColumnDefinitions="Auto,*,Auto"
+              ColumnSpacing="10"
+              Padding="14,10,14,14">
+            <Button Text="+"
+                    FontSize="28"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="44" HeightRequest="44" Padding="0"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Joindre un fichier"
+                    Clicked="OnAttachClicked" />
+
+            <Border Grid.Column="1"
+                    BackgroundColor="{StaticResource BrandCream}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22"
+                    HeightRequest="46"
+                    Padding="18,0">
+                <Entry x:Name="MessageEntry"
+                       Placeholder="Votre message…"
+                       PlaceholderColor="#A3ADA8"
+                       FontSize="15"
+                       TextColor="{StaticResource BrandDark}"
+                       BackgroundColor="Transparent"
+                       VerticalOptions="Center"
+                       ReturnType="Send"
+                       Completed="OnSendClicked"
+                       SemanticProperties.Description="Votre message" />
+            </Border>
+
+            <Button Grid.Column="2"
+                    Text="➤"
+                    FontSize="18"
+                    TextColor="White"
+                    BackgroundColor="{StaticResource BrandGreen}"
+                    WidthRequest="46" HeightRequest="46"
+                    CornerRadius="23"
+                    Padding="0"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Envoyer"
+                    Clicked="OnSendClicked" />
+        </Grid>
+
+    </Grid>
+</ContentPage>
