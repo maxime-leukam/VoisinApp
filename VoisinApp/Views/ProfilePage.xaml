@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:VoisinApp.Views.Controls"
+             x:Class="VoisinApp.Views.ProfilePage"
+             Title="Profil"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandPaper}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="Auto,*,Auto"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <!-- En-tête -->
+        <Grid Grid.Row="0" RowDefinitions="Auto,Auto" ColumnDefinitions="90,*,90">
+            <Label Grid.Column="1"
+                   Text="Mon profil"
+                   Margin="0,18"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource BrandDark}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   SemanticProperties.HeadingLevel="Level1" />
+            <Button Grid.Column="2"
+                    Text="Modifier"
+                    FontSize="15"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource BrandGreen}"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Clicked="OnEditClicked" />
+            <BoxView Grid.Row="1" Grid.ColumnSpan="3"
+                     HeightRequest="1"
+                     Color="{StaticResource BrandBorder}" />
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="0">
+
+                <!-- Identité -->
+                <VerticalStackLayout Padding="20,24,20,20" Spacing="0">
+
+                    <Border BackgroundColor="#FBE0D8"
+                            Stroke="White"
+                            StrokeThickness="4"
+                            WidthRequest="80" HeightRequest="80"
+                            StrokeShape="RoundRectangle 24"
+                            HorizontalOptions="Center">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,3" Radius="8" Opacity="0.12" />
+                        </Border.Shadow>
+                        <Label x:Name="InitialsLabel"
+                               Text="MT"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource BrandDark}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Label x:Name="NameLabel"
+                           Text="Mireille Tchana"
+                           Margin="0,14,0,0"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BrandDark}"
+                           HorizontalOptions="Center" />
+
+                    <Label Text="📍 Bonamoussadi · Membre depuis 2023"
+                           Margin="0,6,0,0"
+                           FontSize="13"
+                           TextColor="{StaticResource BrandMuted}"
+                           HorizontalOptions="Center" />
+
+                    <!-- Statistiques -->
+                    <Grid Margin="0,20,0,0" ColumnDefinitions="*,1,*,1,*">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="12" FontSize="22" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" HorizontalOptions="Center" />
+                            <Label Text="Coups de main" FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <BoxView Grid.Column="1" WidthRequest="1" Color="{StaticResource BrandBorder}" />
+                        <VerticalStackLayout Grid.Column="2" Spacing="2">
+                            <Label Text="4" FontSize="22" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" HorizontalOptions="Center" />
+                            <Label Text="Annonces" FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <BoxView Grid.Column="3" WidthRequest="1" Color="{StaticResource BrandBorder}" />
+                        <VerticalStackLayout Grid.Column="4" Spacing="2">
+                            <Label Text="8" FontSize="22" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" HorizontalOptions="Center" />
+                            <Label Text="Événements" FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Profil vérifié -->
+                    <Border Margin="0,20,0,0"
+                            BackgroundColor="#EEF4EF"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18"
+                            Padding="16,14">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                            <Label Text="🛡️" FontSize="22" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="Profil vérifié" FontSize="15" FontAttributes="Bold"
+                                       TextColor="{StaticResource BrandGreen}" />
+                                <Label Text="Adresse et e-mail confirmés" FontSize="12"
+                                       TextColor="{StaticResource BrandMuted}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="✓" FontSize="20" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandGreen}" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <BoxView HeightRequest="8" Color="{StaticResource BrandCream}" />
+
+                <!-- Menu -->
+                <VerticalStackLayout BackgroundColor="White" Spacing="0">
+
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14" Padding="20,14">
+                        <Border BackgroundColor="{StaticResource BrandCream}" StrokeThickness="0"
+                                WidthRequest="46" HeightRequest="46" StrokeShape="RoundRectangle 14">
+                            <Label Text="🔔" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="Notifications" FontSize="16" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" />
+                            <Label Text="Demandes, messages, événements" FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="28"
+                               TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNotificationsTapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <BoxView HeightRequest="1" Color="{StaticResource BrandBorder}" />
+
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14" Padding="20,14">
+                        <Border BackgroundColor="{StaticResource BrandCream}" StrokeThickness="0"
+                                WidthRequest="46" HeightRequest="46" StrokeShape="RoundRectangle 14">
+                            <Label Text="📍" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="Ma zone" FontSize="16" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" />
+                            <Label Text="Bonamoussadi · Rayon de 2 km" FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="28"
+                               TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnZoneTapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <BoxView HeightRequest="1" Color="{StaticResource BrandBorder}" />
+
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14" Padding="20,14">
+                        <Border BackgroundColor="{StaticResource BrandCream}" StrokeThickness="0"
+                                WidthRequest="46" HeightRequest="46" StrokeShape="RoundRectangle 14">
+                            <Label Text="🛡️" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="Confidentialité et sécurité" FontSize="16" FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" />
+                            <Label Text="Gérer mes préférences" FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="2" Text="›" FontSize="28"
+                               TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPrivacyTapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <BoxView HeightRequest="1" Color="{StaticResource BrandBorder}" />
+
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14" Padding="20,14">
+                        <Border BackgroundColor="{StaticResource BrandCream}" StrokeThickness="0"
+                                WidthRequest="46" HeightRequest="46" StrokeShape="RoundRectangle 14">
+                            <Label Text="↩" FontSize="20" TextColor="{StaticResource BrandGreen}"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <Label Grid.Column="1" Text="Se déconnecter" FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="›" FontSize="28"
+                               TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoutTapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <BoxView HeightRequest="1" Color="{StaticResource BrandBorder}" />
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <controls:BottomNavbar Grid.Row="2" ActiveTab="Profil" />
+
+    </Grid>
+</ContentPage>

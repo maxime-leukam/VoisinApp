@@ -57,10 +57,15 @@ public partial class BottomNavbar : ContentView
                     await Shell.Current.GoToAsync("//AdsPage");
                 break;
             case "Publish":
+                await Shell.Current.GoToAsync(nameof(NewAdPage));
                 break;
             case "Messages":
+                if (ActiveTab != "Messages")
+                    await Shell.Current.GoToAsync("//MessagesPage");
                 break;
             case "Profil":
+                if (ActiveTab != "Profil")
+                    await Shell.Current.GoToAsync("//ProfilePage");
                 break;
         }
     }

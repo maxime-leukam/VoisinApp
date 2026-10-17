@@ -41,18 +41,21 @@ public partial class HomePage : ContentPage
     private async void OnPublishAdTapped(object? sender, TappedEventArgs e)
     {
         // TODO : await Shell.Current.GoToAsync(nameof(NewAdPage));
+        await Shell.Current.GoToAsync(nameof(NewAdPage));
         await Task.CompletedTask;
     }
 
     private async void OnEventsTapped(object? sender, TappedEventArgs e)
     {
         // TODO : await Shell.Current.GoToAsync(nameof(EventsPage));
+        await Shell.Current.GoToAsync(nameof(EventsPage));
         await Task.CompletedTask;
     }
 
     private async void OnReportTapped(object? sender, TappedEventArgs e)
     {
         // TODO : await Shell.Current.GoToAsync(nameof(ReportPage));
+        await Shell.Current.GoToAsync(nameof(ReportPage));
         await Task.CompletedTask;
     }
 

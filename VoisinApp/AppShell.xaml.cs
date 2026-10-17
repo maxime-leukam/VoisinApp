@@ -11,6 +11,13 @@ namespace VoisinApp
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(HelpRequestPage), typeof(HelpRequestPage));
+
+            Routing.RegisterRoute(nameof(NewAdPage), typeof(NewAdPage));
+            Routing.RegisterRoute(nameof(EventsPage), typeof(EventsPage));
+            Routing.RegisterRoute(nameof(EventDetailPage), typeof(EventDetailPage));
+            Routing.RegisterRoute(nameof(ConversationPage), typeof(ConversationPage));
+            Routing.RegisterRoute(nameof(ReportPage), typeof(ReportPage));
+
         }
     }
 }

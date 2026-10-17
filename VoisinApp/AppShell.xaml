@@ -19,8 +19,18 @@
         Route="HomePage" />
 
     <ShellContent
-    Title="Annonces"
-    ContentTemplate="{DataTemplate views:AdsPage}"
-    Route="AdsPage" />
+        Title="Annonces"
+        ContentTemplate="{DataTemplate views:AdsPage}"
+        Route="AdsPage" />
+
+    <ShellContent
+         Title="Messages"
+         ContentTemplate="{DataTemplate views:MessagesPage}"
+         Route="MessagesPage" />
+
+    <ShellContent
+         Title="Profil"
+         ContentTemplate="{DataTemplate views:ProfilePage}"
+         Route="ProfilePage" /> 
 
 </Shell>

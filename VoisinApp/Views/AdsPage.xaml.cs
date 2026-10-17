@@ -81,6 +81,7 @@ public partial class AdsPage : ContentPage
     private async void OnNewAdClicked(object? sender, EventArgs e)
     {
         // TODO : await Shell.Current.GoToAsync(nameof(NewAdPage));
+        await Shell.Current.GoToAsync(nameof(NewAdPage));
         await Task.CompletedTask;
     }
 
