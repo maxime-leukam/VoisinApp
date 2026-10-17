@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VoisinApp.Views.HelpRequestPage"
+             Title="Demander de l'aide"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandPaper}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="Auto,*"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <!-- Barre du haut -->
+        <Grid Grid.Row="0" RowDefinitions="Auto,Auto" ColumnDefinitions="72,*,72">
+            <Button Text="←"
+                    FontSize="24"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="56"
+                    HeightRequest="56"
+                    Padding="0"
+                    HorizontalOptions="Start"
+                    Margin="12,8,0,8"
+                    SemanticProperties.Description="Retour"
+                    Clicked="OnBackClicked" />
+            <Label Grid.Column="1"
+                   Text="Demander de l'aide"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource BrandDark}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+            <BoxView Grid.Row="1" Grid.ColumnSpan="3"
+                     HeightRequest="1"
+                     Color="{StaticResource BrandBorder}" />
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,24,24,32" Spacing="0">
+
+                <Border BackgroundColor="#FBE0D8"
+                        StrokeThickness="0"
+                        WidthRequest="56" HeightRequest="56"
+                        HorizontalOptions="Start"
+                        StrokeShape="RoundRectangle 16">
+                    <Label Text="❓"
+                           FontSize="24"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Label Text="De quoi avez-vous besoin ?"
+                       Margin="0,20,0,0"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}"
+                       SemanticProperties.HeadingLevel="Level1" />
+
+                <Label Text="Votre demande sera visible par les voisins situés à proximité."
+                       Margin="0,8,0,0"
+                       FontSize="16"
+                       LineHeight="1.25"
+                       TextColor="{StaticResource BrandMuted}" />
+
+                <!-- Catégorie -->
+                <Label Text="Catégorie"
+                       Margin="0,28,0,10"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}" />
+
+                <Grid x:Name="CategoriesGrid"
+                      ColumnDefinitions="*,*"
+                      RowDefinitions="Auto,Auto"
+                      ColumnSpacing="12"
+                      RowSpacing="12">
+
+                    <Border Grid.Row="0" Grid.Column="0" ClassId="Bricolage"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <Label Text="Bricolage" FontSize="15" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Row="0" Grid.Column="1" ClassId="Transport"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <Label Text="Transport" FontSize="15" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" ClassId="Courses"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <Label Text="Courses" FontSize="15" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="1" ClassId="Autre"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <Label Text="Autre" FontSize="15" FontAttributes="Bold"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+
+                <!-- Titre -->
+                <Label Text="Titre de la demande"
+                       Margin="0,24,0,8"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}" />
+
+                <Border BackgroundColor="{StaticResource BrandField}"
+                        Stroke="{StaticResource BrandBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        HeightRequest="56"
+                        Padding="18,0">
+                    <Entry x:Name="TitleEntry"
+                           Placeholder="Ex. Besoin d'une perceuse"
+                           PlaceholderColor="#A3ADA8"
+                           ReturnType="Next"
+                           FontSize="16"
+                           TextColor="{StaticResource BrandDark}"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center"
+                           SemanticProperties.Description="Titre de la demande" />
+                </Border>
+
+                <!-- Description -->
+                <Label Text="Décrivez votre besoin"
+                       Margin="0,20,0,8"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}" />
+
+                <Border BackgroundColor="{StaticResource BrandField}"
+                        Stroke="{StaticResource BrandBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        HeightRequest="130"
+                        Padding="14,6">
+                    <Editor x:Name="DescriptionEditor"
+                            Placeholder="Donnez quelques détails utiles à vos voisins…"
+                            PlaceholderColor="#A3ADA8"
+                            FontSize="16"
+                            TextColor="{StaticResource BrandDark}"
+                            BackgroundColor="Transparent"
+                            SemanticProperties.Description="Description du besoin" />
+                </Border>
+
+                <!-- Demande urgente -->
+                <BoxView Margin="0,20,0,0" HeightRequest="1" Color="{StaticResource BrandBorder}" />
+
+                <Grid Margin="0,14" ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                        <Label Text="Demande urgente"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource BrandDark}" />
+                        <Label Text="Notifier les voisins disponibles"
+                               FontSize="12"
+                               TextColor="{StaticResource BrandMuted}" />
+                    </VerticalStackLayout>
+                    <Switch x:Name="UrgentSwitch"
+                            Grid.Column="1"
+                            OnColor="{StaticResource BrandGreen}"
+                            ThumbColor="White"
+                            VerticalOptions="Center"
+                            SemanticProperties.Description="Demande urgente" />
+                </Grid>
+
+                <BoxView HeightRequest="1" Color="{StaticResource BrandBorder}" />
+
+                <!-- Bouton -->
+                <Button Text="Publier ma demande"
+                        Margin="0,20,0,0"
+                        BackgroundColor="{StaticResource BrandGreen}"
+                        TextColor="White"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        HeightRequest="56"
+                        CornerRadius="18"
+                        Clicked="OnPublishClicked">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource BrandGreen}"
+                                Offset="0,6"
+                                Radius="14"
+                                Opacity="0.25" />
+                    </Button.Shadow>
+                </Button>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

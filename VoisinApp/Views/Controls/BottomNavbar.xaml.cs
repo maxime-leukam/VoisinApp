@@ -53,6 +53,8 @@ public partial class BottomNavbar : ContentView
 
             // TODO : brancher les autres onglets quand les pages seront créées
             case "Annonces":
+                if (ActiveTab != "Annonces")
+                    await Shell.Current.GoToAsync("//AdsPage");
                 break;
             case "Publish":
                 break;

@@ -29,13 +29,13 @@ public partial class HomePage : ContentPage
     private async void OnAskHelpClicked(object? sender, EventArgs e)
     {
         // TODO : await Shell.Current.GoToAsync(nameof(HelpRequestPage));
-        await Task.CompletedTask;
+        await Shell.Current.GoToAsync(nameof(HelpRequestPage));
     }
 
     private async void OnAskHelpTapped(object? sender, TappedEventArgs e)
     {
         // TODO : await Shell.Current.GoToAsync(nameof(HelpRequestPage));
-        await Task.CompletedTask;
+        await Shell.Current.GoToAsync(nameof(HelpRequestPage));
     }
 
     private async void OnPublishAdTapped(object? sender, TappedEventArgs e)

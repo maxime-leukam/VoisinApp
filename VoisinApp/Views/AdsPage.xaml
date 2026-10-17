@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:VoisinApp.Views.Controls"
+             xmlns:models="clr-namespace:VoisinApp.Models"
+             x:Class="VoisinApp.Views.AdsPage"
+             Title="Annonces"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandPaper}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="Auto,Auto,Auto,*,Auto"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <!-- En-tête -->
+        <Grid Grid.Row="0" RowDefinitions="Auto,Auto" ColumnDefinitions="64,*,64">
+            <Label Grid.Column="1"
+                   Text="Petites annonces"
+                   Margin="0,18"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource BrandDark}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   SemanticProperties.HeadingLevel="Level1" />
+            <Button Grid.Column="2"
+                    Text="+"
+                    FontSize="30"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="56"
+                    HeightRequest="56"
+                    Padding="0"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    SemanticProperties.Description="Nouvelle annonce"
+                    Clicked="OnNewAdClicked" />
+            <BoxView Grid.Row="1" Grid.ColumnSpan="3"
+                     HeightRequest="1"
+                     Color="{StaticResource BrandBorder}" />
+        </Grid>
+
+        <!-- Recherche -->
+        <Border Grid.Row="1"
+                Margin="20,18,20,0"
+                BackgroundColor="{StaticResource BrandCream}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 16"
+                HeightRequest="52"
+                Padding="16,0">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <Label Text="🔍" FontSize="16" VerticalOptions="Center" />
+                <Entry x:Name="SearchEntry"
+                       Grid.Column="1"
+                       Placeholder="Rechercher près de chez vous"
+                       PlaceholderColor="#A3ADA8"
+                       FontSize="16"
+                       TextColor="{StaticResource BrandDark}"
+                       BackgroundColor="Transparent"
+                       VerticalOptions="Center"
+                       ReturnType="Search"
+                       TextChanged="OnSearchTextChanged"
+                       SemanticProperties.Description="Rechercher une annonce" />
+            </Grid>
+        </Border>
+
+        <!-- Filtres -->
+        <ScrollView Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,14,0,12">
+            <HorizontalStackLayout x:Name="ChipsLayout" Spacing="10" Padding="20,0">
+
+                <Border ClassId="Tout" StrokeShape="RoundRectangle 20" StrokeThickness="1"
+                        Padding="18,0" HeightRequest="40">
+                    <Label Text="Tout" FontSize="14" VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnChipTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border ClassId="À vendre" StrokeShape="RoundRectangle 20" StrokeThickness="1"
+                        Padding="18,0" HeightRequest="40">
+                    <Label Text="À vendre" FontSize="14" VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnChipTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border ClassId="À donner" StrokeShape="RoundRectangle 20" StrokeThickness="1"
+                        Padding="18,0" HeightRequest="40">
+                    <Label Text="À donner" FontSize="14" VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnChipTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border ClassId="Services" StrokeShape="RoundRectangle 20" StrokeThickness="1"
+                        Padding="18,0" HeightRequest="40">
+                    <Label Text="Services" FontSize="14" VerticalOptions="Center" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnChipTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Grille d'annonces (2 colonnes) -->
+        <CollectionView x:Name="AdsCollection"
+                        Grid.Row="3"
+                        Margin="20,0"
+                        SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="2"
+                                 HorizontalItemSpacing="12"
+                                 VerticalItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Ad">
+                    <Border BackgroundColor="White"
+                            Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="0">
+                        <Grid RowDefinitions="130,Auto">
+                            <Image Source="{Binding Image}"
+                                   Aspect="AspectFill"
+                                   SemanticProperties.Description="{Binding Title}" />
+
+                            <VerticalStackLayout Grid.Row="1" Padding="12,10,12,12" Spacing="3">
+                                <Label Text="{Binding TypeLabel}"
+                                       TextColor="{Binding TypeColor}"
+                                       FontSize="10"
+                                       FontAttributes="Bold"
+                                       CharacterSpacing="0.8" />
+                                <Label Text="{Binding Title}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1"
+                                       TextColor="{StaticResource BrandDark}" />
+                                <Label Text="{Binding Price}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource BrandDark}" />
+                                <Label Text="{Binding Info}"
+                                       FontSize="11"
+                                       TextColor="{StaticResource BrandMuted}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAdTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <Label Text="Aucune annonce trouvée."
+                       HorizontalOptions="Center"
+                       Margin="0,40"
+                       TextColor="{StaticResource BrandMuted}" />
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Barre de navigation -->
+        <controls:BottomNavbar Grid.Row="4" ActiveTab="Annonces" />
+
+    </Grid>
+</ContentPage>
