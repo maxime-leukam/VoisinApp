@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VoisinApp.Views.ReportPage"
+             Title="Signalement"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrandPaper}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="Auto,*"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <!-- Barre du haut -->
+        <Grid Grid.Row="0" RowDefinitions="Auto,Auto" ColumnDefinitions="72,*,72">
+            <Button Text="←"
+                    FontSize="24"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="56" HeightRequest="56" Padding="0"
+                    HorizontalOptions="Start"
+                    Margin="12,8,0,8"
+                    SemanticProperties.Description="Retour"
+                    Clicked="OnBackClicked" />
+            <Label Grid.Column="1"
+                   Text="Faire un signalement"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource BrandDark}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+            <BoxView Grid.Row="1" Grid.ColumnSpan="3"
+                     HeightRequest="1"
+                     Color="{StaticResource BrandBorder}" />
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,20,20,32" Spacing="0">
+
+                <!-- Bandeau de confidentialité -->
+                <Border BackgroundColor="#EEF4EF"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="16,14">
+                    <HorizontalStackLayout Spacing="14">
+                        <Label Text="🛡️" FontSize="22" VerticalOptions="Center" />
+                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                            <Label Text="Pour un quartier plus sûr"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandGreen}" />
+                            <Label Text="Votre identité ne sera jamais affichée publiquement."
+                                   FontSize="12"
+                                   TextColor="{StaticResource BrandMuted}" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Catégorie -->
+                <Label Text="Que souhaitez-vous signaler ?"
+                       Margin="0,24,0,10"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}" />
+
+                <Grid x:Name="CategoriesGrid"
+                      ColumnDefinitions="*,*"
+                      RowDefinitions="Auto,Auto"
+                      ColumnSpacing="12"
+                      RowSpacing="12">
+
+                    <Border Grid.Row="0" Grid.Column="0" ClassId="Voirie"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="🚧" FontSize="16" VerticalOptions="Center" />
+                            <Label Text="Voirie" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Row="0" Grid.Column="1" ClassId="Propreté"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="🧹" FontSize="16" VerticalOptions="Center" />
+                            <Label Text="Propreté" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" ClassId="Éclairage"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="💡" FontSize="16" VerticalOptions="Center" />
+                            <Label Text="Éclairage" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="1" ClassId="Sécurité"
+                            HeightRequest="52" StrokeShape="RoundRectangle 16" StrokeThickness="1">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="🛡️" FontSize="16" VerticalOptions="Center" />
+                            <Label Text="Sécurité" FontSize="15" FontAttributes="Bold" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+
+                <!-- Localisation -->
+                <Label Text="Localisation"
+                       Margin="0,24,0,8"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}" />
+                <Border BackgroundColor="{StaticResource BrandField}"
+                        Stroke="{StaticResource BrandBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        HeightRequest="56"
+                        Padding="18,0">
+                    <Entry x:Name="LocationEntry"
+                           Placeholder="Indiquez l'adresse ou placez un repère"
+                           PlaceholderColor="#A3ADA8"
+                           FontSize="16"
+                           TextColor="{StaticResource BrandDark}"
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center"
+                           SemanticProperties.Description="Localisation du problème" />
+                </Border>
+
+                <!-- Carte (aperçu statique ; à remplacer par une vraie carte plus tard) -->
+                <Border Margin="0,12,0,0"
+                        BackgroundColor="#E9EBDD"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16"
+                        HeightRequest="110"
+                        SemanticProperties.Description="Aperçu de la carte">
+                    <Grid>
+                        <BoxView Color="White"
+                                 HeightRequest="24"
+                                 WidthRequest="700"
+                                 Rotation="-12"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center" />
+                        <Label Text="📍"
+                               FontSize="26"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMapTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Description -->
+                <Label Text="Description"
+                       Margin="0,24,0,8"
+                       FontSize="14"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource BrandDark}" />
+                <Border BackgroundColor="{StaticResource BrandField}"
+                        Stroke="{StaticResource BrandBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        HeightRequest="130"
+                        Padding="14,6">
+                    <Editor x:Name="DescriptionEditor"
+                            Placeholder="Décrivez le problème observé…"
+                            PlaceholderColor="#A3ADA8"
+                            FontSize="16"
+                            TextColor="{StaticResource BrandDark}"
+                            BackgroundColor="Transparent"
+                            SemanticProperties.Description="Description du problème" />
+                </Border>
+
+                <Button Text="Envoyer le signalement"
+                        Margin="0,24,0,0"
+                        BackgroundColor="{StaticResource BrandGreen}"
+                        TextColor="White"
+                        FontSize="17"
+                        FontAttributes="Bold"
+                        HeightRequest="56"
+                        CornerRadius="18"
+                        Clicked="OnSendClicked">
+                    <Button.Shadow>
+                        <Shadow Brush="{StaticResource BrandGreen}" Offset="0,6" Radius="14" Opacity="0.25" />
+                    </Button.Shadow>
+                </Button>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
