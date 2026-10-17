@@ -6,11 +6,207 @@
              Title="Evènements"
              Shell.NavBarIsVisible="False"
              BackgroundColor="{StaticResource BrandPaper}">
+
+    <Grid x:Name="Container"
+          RowDefinitions="Auto,*,Auto"
+          HorizontalOptions="Center"
+          VerticalOptions="Fill">
+
+        <!-- En-tête -->
+        <Grid Grid.Row="0" RowDefinitions="Auto,Auto" ColumnDefinitions="64,*,64">
+            <Button Text="←"
+                    FontSize="24"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="56" HeightRequest="56" Padding="0"
+                    HorizontalOptions="Start" VerticalOptions="Center"
+                    SemanticProperties.Description="Retour"
+                    Clicked="OnBackClicked" />
+            <Label Grid.Column="1"
+                   Text="Événements"
+                   Margin="0,18"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource BrandDark}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   SemanticProperties.HeadingLevel="Level1" />
+            <Button Grid.Column="2"
+                    Text="+"
+                    FontSize="30"
+                    TextColor="{StaticResource BrandDark}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="56" HeightRequest="56" Padding="0"
+                    HorizontalOptions="End" VerticalOptions="Center"
+                    SemanticProperties.Description="Créer un événement"
+                    Clicked="OnNewEventClicked" />
+            <BoxView Grid.Row="1" Grid.ColumnSpan="3"
+                     HeightRequest="1"
+                     Color="{StaticResource BrandBorder}" />
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,16,20,24" Spacing="0">
+
+                <!-- Bandeau des jours (rempli dans le code-behind) -->
+                <Grid x:Name="DaysGrid"
+                      ColumnDefinitions="*,*,*,*,*"
+                      ColumnSpacing="6" />
+
+                <!-- Événement à la une -->
+                <Border Margin="0,18,0,0"
+                        BackgroundColor="White"
+                        Stroke="{StaticResource BrandBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="0">
+                    <VerticalStackLayout Spacing="0">
+                        <Grid HeightRequest="190">
+                            <Image Source="event_party.jpg"
+                                   Aspect="AspectFill"
+                                   SemanticProperties.Description="Habitants réunis pour la fête du quartier" />
+                            <BoxView VerticalOptions="End" HeightRequest="110">
+                                <BoxView.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#00000000" Offset="0.0" />
+                                        <GradientStop Color="#B3183A30" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </BoxView.Background>
+                            </BoxView>
+                            <Label Text="FÊTE DU QUARTIER"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   VerticalOptions="End"
+                                   Margin="18,0,18,16" />
+                        </Grid>
+
+                        <VerticalStackLayout Padding="18" Spacing="6">
+                            <Label Text="SAMEDI · 14:00"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="0.8"
+                                   TextColor="#B5473A" />
+                            <Label Text="Grande fête de Bonamoussadi"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource BrandDark}" />
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="📍" FontSize="14" VerticalOptions="Center" />
+                                <Label Text="Parcours Vita de Bonamoussadi"
+                                       FontSize="14"
+                                       TextColor="{StaticResource BrandMuted}"
+                                       VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Margin="0,8,0,0" Spacing="12">
+                                <HorizontalStackLayout Spacing="-8">
+                                    <Border BackgroundColor="#FBE0D8" Stroke="White" StrokeThickness="2"
+                                            WidthRequest="32" HeightRequest="32" StrokeShape="RoundRectangle 16">
+                                        <Label Text="AN" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource BrandDark}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <Border BackgroundColor="#DCEBE2" Stroke="White" StrokeThickness="2"
+                                            WidthRequest="32" HeightRequest="32" StrokeShape="RoundRectangle 16">
+                                        <Label Text="JE" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource BrandDark}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <Border BackgroundColor="#F7E9C6" Stroke="White" StrokeThickness="2"
+                                            WidthRequest="32" HeightRequest="32" StrokeShape="RoundRectangle 16">
+                                        <Label Text="+8" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource BrandDark}"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </HorizontalStackLayout>
+                                <Label Text="42 voisins participent"
+                                       FontSize="13"
+                                       TextColor="{StaticResource BrandMuted}"
+                                       VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFeaturedEventTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- À venir -->
+                <Grid Margin="0,28,0,12" ColumnDefinitions="*,Auto">
+                    <Label Text="À venir"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BrandDark}"
+                           SemanticProperties.HeadingLevel="Level2" />
+                    <Label Grid.Column="1"
+                           Text="Calendrier"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BrandGreen}"
+                           VerticalOptions="Center" />
+                </Grid>
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Border BackgroundColor="White" Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1" StrokeShape="RoundRectangle 18" Padding="12">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                            <Border BackgroundColor="#FBE0D8" StrokeThickness="0"
+                                    WidthRequest="60" HeightRequest="60" StrokeShape="RoundRectangle 14">
+                                <VerticalStackLayout VerticalOptions="Center" Spacing="0">
+                                    <Label Text="22" FontSize="22" FontAttributes="Bold"
+                                           TextColor="#B5473A" HorizontalOptions="Center" />
+                                    <Label Text="MAI" FontSize="11" FontAttributes="Bold"
+                                           TextColor="#B5473A" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="Atelier compostage collectif" FontSize="15" FontAttributes="Bold"
+                                       TextColor="{StaticResource BrandDark}" />
+                                <Label Text="🕐 10:30 · Jardin communautaire de Makepe" FontSize="12"
+                                       TextColor="{StaticResource BrandMuted}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" FontSize="26"
+                                   TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnUpcomingEventTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border BackgroundColor="White" Stroke="{StaticResource BrandBorder}"
+                            StrokeThickness="1" StrokeShape="RoundRectangle 18" Padding="12">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                            <Border BackgroundColor="#DCEAF0" StrokeThickness="0"
+                                    WidthRequest="60" HeightRequest="60" StrokeShape="RoundRectangle 14">
+                                <VerticalStackLayout VerticalOptions="Center" Spacing="0">
+                                    <Label Text="26" FontSize="22" FontAttributes="Bold"
+                                           TextColor="#3E6B7C" HorizontalOptions="Center" />
+                                    <Label Text="MAI" FontSize="11" FontAttributes="Bold"
+                                           TextColor="#3E6B7C" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label Text="Grande braderie des voisins" FontSize="15" FontAttributes="Bold"
+                                       TextColor="{StaticResource BrandDark}" />
+                                <Label Text="🕐 08:00 · Carrefour Maetur" FontSize="12"
+                                       TextColor="{StaticResource BrandMuted}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2" Text="›" FontSize="26"
+                                   TextColor="{StaticResource BrandDark}" VerticalOptions="Center" />
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnUpcomingEventTapped" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <controls:BottomNavbar Grid.Row="2" ActiveTab="None" />
+
+    </Grid>
     
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
 </ContentPage>
