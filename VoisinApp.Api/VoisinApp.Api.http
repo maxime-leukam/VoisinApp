@@ -1,0 +1,61 @@
+@host = http://localhost:5080
+
+### 1) Inscription
+POST {{host}}/api/auth/inscription
+Content-Type: application/json
+
+{
+  "prenom": "Mireille",
+  "nom": "Tchana",
+  "email": "mireille@exemple.cm",
+  "motDePasse": "MotDePasse123",
+  "adresse": "Carrefour Maetur, Bonamoussadi",
+  "arrondissement": "Douala V",
+  "charteAcceptee": true
+}
+
+### 2) Connexion  (copiez le "jeton" reçu dans la variable ci-dessous)
+POST {{host}}/api/auth/connexion
+Content-Type: application/json
+
+{ "email": "mireille@exemple.cm", "motDePasse": "MotDePasse123" }
+
+###
+@jeton = COLLEZ_LE_JETON_ICI
+
+### 3) Mon profil
+GET {{host}}/api/profil
+Authorization: Bearer {{jeton}}
+
+### 4) Accueil
+GET {{host}}/api/accueil
+Authorization: Bearer {{jeton}}
+
+### 5) Publier une annonce
+POST {{host}}/api/annonces
+Authorization: Bearer {{jeton}}
+Content-Type: application/json
+
+{ "type": "a_vendre", "titre": "Fauteuil en velours", "description": "Très bon état", "prix": 35000 }
+
+### 6) Lister les annonces
+GET {{host}}/api/annonces?type=a_vendre
+Authorization: Bearer {{jeton}}
+
+### 7) Demande d'aide
+POST {{host}}/api/demandes-aide
+Authorization: Bearer {{jeton}}
+Content-Type: application/json
+
+{ "categorie": "bricolage", "titre": "Besoin d'une perceuse", "description": "Pour fixer une étagère", "urgente": false }
+
+### 8) Signalement
+POST {{host}}/api/signalements
+Authorization: Bearer {{jeton}}
+Content-Type: application/json
+
+{ "categorie": "eclairage", "localisation": "Carrefour Maetur", "description": "Le lampadaire est éteint depuis une semaine." }
+
+### 9) Conversations
+GET {{host}}/api/conversations
+Authorization: Bearer {{jeton}}
